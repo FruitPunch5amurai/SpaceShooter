@@ -27,8 +27,8 @@ struct MotionSystem : public System<MotionSystem>
 		ComponentHandle<PhysicsComponent> physics;
 		for (Entity ent : entities.entities_with_components(box,pos, sprite, physics))
 		{
-			cpBodySetVelocity(box->m_body, cpv(physics->currentSpeed.x * physics->direction.x,
-					physics->currentSpeed.y * physics->direction.y));
+			cpBodySetVelocity(box->m_body, cpv(physics->currentSpeed.x,
+					physics->currentSpeed.y));
 			pos->position = glm::vec2(cpBodyGetPosition(box->m_body).x, cpBodyGetPosition(box->m_body).y);
 		}
 	}

@@ -4,6 +4,7 @@
 #include "AI/IAi.h"
 
 #include "Components\AI_BlueGrunt.h"
+#include "AI\AI_HomingProjectile.h"
 #include "Components\AIComponent.h"
 
 //Rasengine
@@ -45,6 +46,9 @@ struct AiSystem : public System<AiSystem>, public entityx::Receiver<AiSystem>
 		{
 		case AI_ID_BLUE_GRUNT:
 			spAi.reset(new AI_BlueGrunt());
+			break;
+		case AI_ID_ENEMY_HOMING_PROJECTILE:
+			spAi.reset(new AI_HomingProjectile(m_player));
 			break;
 		default:
 			break;

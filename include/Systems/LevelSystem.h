@@ -17,6 +17,7 @@
 
 using namespace entityx;
 using namespace luabridge;
+/*TODO: Create Enemy QUEUE to process Enemy Creation*/
 struct LevelSystem : public System<LevelSystem>
 {
 

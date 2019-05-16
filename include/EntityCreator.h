@@ -2,9 +2,9 @@
 
 #include "ICreatable.h"
 #include "AI/IAI.h"
+#include "Projectile.h"
 
 #include <GLM/glm.hpp>
-#include <chipmunk/chipmunk.h>
 #include <InputManager.h>
 
 
@@ -29,4 +29,14 @@ public:
 private:
 	cpSpace* m_space;
 	Rasengine::InputManager* m_inputManager;
+};
+class ProjectileCreator : public ICreatable
+{
+public:
+	ProjectileCreator(const Projectile &projectile, cpSpace * space);
+
+	void create(entityx::Entity entity);
+private:
+	Projectile m_projectile;
+	cpSpace* m_space;
 };

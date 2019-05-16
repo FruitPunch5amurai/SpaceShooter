@@ -49,12 +49,11 @@ struct PlayerControllerSystem : public System<PlayerControllerSystem>
 			centerPosition.x = cpBodyGetPosition(box->m_body).x;
 			centerPosition.y = cpBodyGetPosition(box->m_body).y;
 
-			physics->currentSpeed = glm::vec2(0,0);
+			physics->currentSpeed = glm::vec2(physics->maxSpeed, physics->maxSpeed);
 			physics->direction = glm::vec2(0.0f, 0.0f);
 
 			if (input->inputManager->isKeyDown(SDLK_w))
 			{
-				physics->currentSpeed = glm::vec2(physics->currentSpeed.x,physics->maxSpeed);
 				if (!camera->IsBoxInView(glm::vec2(centerPosition.x,centerPosition.y+3), sprite->m_currentAnimation->at(sprite->m_currentFrame).dims))
 					physics->direction = glm::vec2(physics->direction.x, 0.0f);
 				else
@@ -62,7 +61,6 @@ struct PlayerControllerSystem : public System<PlayerControllerSystem>
 			}
 			if (input->inputManager->isKeyDown(SDLK_s))
 			{
-				physics->currentSpeed = glm::vec2(physics->currentSpeed.x, physics->maxSpeed);
 				if (!camera->IsBoxInView(glm::vec2(centerPosition.x, centerPosition.y - sprite->m_currentAnimation->at(sprite->m_currentFrame).dims.y), sprite->m_currentAnimation->at(sprite->m_currentFrame).dims))
 					physics->direction = glm::vec2(physics->direction.x, 0.0f);
 				else
@@ -70,20 +68,20 @@ struct PlayerControllerSystem : public System<PlayerControllerSystem>
 			}
 			if (input->inputManager->isKeyDown(SDLK_a))
 			{
-				physics->currentSpeed = glm::vec2(physics->maxSpeed, physics->currentSpeed.y);
 				if (!camera->IsBoxInView(glm::vec2(centerPosition.x - sprite->m_currentAnimation->at(sprite->m_currentFrame).dims.x, centerPosition.y), sprite->m_currentAnimation->at(sprite->m_currentFrame).dims))
 					physics->direction = glm::vec2(0.0f, physics->direction.y);
 				else
 					physics->direction = glm::vec2(-1.0f, physics->direction.y);
 			}
 			if (input->inputManager->isKeyDown(SDLK_d))
-			{
-				physics->currentSpeed = glm::vec2(physics->maxSpeed, physics->currentSpeed.y);
+			{				
 				if (!camera->IsBoxInView(glm::vec2(centerPosition.x + sprite->m_currentAnimation->at(sprite->m_currentFrame).dims.x/2, centerPosition.y), sprite->m_currentAnimation->at(sprite->m_currentFrame).dims))
 					physics->direction = glm::vec2(0.0f, physics->direction.y);
 				else
 					physics->direction = glm::vec2(1.0f, physics->direction.y);
 			}
+			physics->currentSpeed = glm::vec2(physics->currentSpeed.x * physics->direction.x, 
+				physics->currentSpeed.y * physics->direction.y);
 			if (input->inputManager->isKeyDown(SDLK_SPACE))
 			{
 				if (atkSpeed->timeAttack <= 0)
@@ -91,10 +89,11 @@ struct PlayerControllerSystem : public System<PlayerControllerSystem>
 					events.emit<Projectile>(centerPosition, 
 						sprite->m_dir,
 						800.0f, 
-						200.0f, 
-						"Animation/PlayerProjectile.json",
+						160.0f, 
+						"Animation/Projectile.json",
 						"NormalShot",
 						2,	//Damage
+						AI_ID_NONE,
 						PLAYER_BULLET_CATAGORY,
 						PLAYER_BULLET_CATAGORY_MASK);
 					atkSpeed->timeAttack = atkSpeed->atkSpeed;

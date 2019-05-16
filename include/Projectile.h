@@ -1,6 +1,11 @@
 #pragma once
+
+#include "AI\IAi.h"
+
 #include <string>
 #include <chipmunk/chipmunk.h>
+#include <GLM/glm.hpp>
+
 struct Projectile
 {
 	Projectile(const glm::vec2& pos,
@@ -10,8 +15,11 @@ struct Projectile
 		const char* res, 
 		const char* type,
 		int d,
-		cpBitmask catMask = 0x0, cpBitmask colMask = 0x0) : position(pos),
+		AiId ai,
+		cpBitmask catMask = 0x0,
+		cpBitmask colMask = 0x0) : position(pos),
 		direction(dir), 
+		aiType(ai),
 		speed(spd), 
 		TtL(T), 
 		resource(res),
@@ -30,4 +38,5 @@ struct Projectile
 	const char*  projectileType;
 	cpBitmask catagoryMask;
 	cpBitmask bitMask;
+	AiId aiType;
 };

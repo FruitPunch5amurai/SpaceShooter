@@ -9,6 +9,9 @@
 #include "Components\DamageComponent.h"
 #include "Components\AIComponent.h"
 #include "Components\InputComponent.h"
+#include "Components\TtLComponent.h"
+
+#include "AI\IAI.h"
 
 #include "CollisionBitMasks.h"
 
@@ -33,7 +36,7 @@ void EnemyCreator::create(entityx::Entity entity)
 		entity.component<SpriteComponent>().get()->m_currentFrame = 3;
 		entity.component<SpriteComponent>().get()->m_dir = glm::vec2(-1, 0);
 		entity.assign<PhysicsComponent>(300.0f);
-		entity.assign<AttackSpeedComponent>(10.0f);
+		entity.assign<AttackSpeedComponent>(50.0f);
 		entity.assign<BoxColliderComponent>(m_space,
 			m_position,
 			entity.component<SpriteComponent>().get()->m_currentAnimation->at(0).dims,
@@ -73,3 +76,35 @@ void PlayerCreator::create(entityx::Entity entity)
 	entity.assign<HealthComponent>(1);
 	entity.assign<DamageComponent>(1);
 }
+
+ProjectileCreator::ProjectileCreator(const Projectile &projectile, cpSpace * space)
+	:m_space(space),
+	m_projectile(projectile)
+{
+}
+
+void ProjectileCreator::create(entityx::Entity entity)
+{
+
+	entity.assign<SpriteComponent>(m_projectile.resource, m_projectile.projectileType);
+	entity.assign<PhysicsComponent>(m_projectile.speed);
+	entity.component<PhysicsComponent>()->currentSpeed = glm::vec2(m_projectile.speed * m_projectile.direction.x,
+		m_projectile.speed*m_projectile.direction.y);
+	entity.component<PhysicsComponent>()->direction = m_projectile.direction;
+	entity.assign<TtLComponent>(m_projectile.TtL);
+	entity.assign<TransformComponent>(m_projectile.position);
+	entity.assign<BoxColliderComponent>(
+		m_space,
+		m_projectile.position,
+		entity.component<SpriteComponent>().get()->m_currentAnimation->at(0).dims,
+		entity.component<SpriteComponent>().get()->m_spriteSheet->texture,
+		Rasengine::ColorRGBA8(255.0f, 255.0f, 255.0f, 255.0f), entity,
+		true,
+		m_projectile.catagoryMask,
+		m_projectile.bitMask);
+	entity.assign<DamageComponent>(m_projectile.damage);
+	entity.assign<HealthComponent>(1);
+	if(m_projectile.aiType != 0)
+		entity.assign<AIComponent>(m_projectile.aiType);
+}
+

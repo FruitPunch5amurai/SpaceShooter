@@ -23,18 +23,19 @@ struct AI_BlueGrunt : public IAi
 		{
 			events.emit<Projectile>(transform->position,
 				glm::vec2(sprite->m_dir.x, sprite->m_dir.y),
-				800.0f,
-				1000.0f,
-				"Animation/PlayerProjectile.json",
-				"NormalShot",
+				100.0f,
+				10000.0f,
+				"Animation/Projectile.json",
+				"EnemyShot1",
 				2,	//Damage
+				AI_ID_ENEMY_HOMING_PROJECTILE,
 				ENEMY_BULLET_CATAGORY,
 				ENEMY_BULLET_CATAGORY_MASK);
 			atkSpeed->timeAttack = atkSpeed->atkSpeed;
 		}
 
-		physics->currentSpeed = glm::vec2(physics->maxSpeed, 0);
 		physics->direction = glm::vec2(-1, 0);
+		physics->currentSpeed = physics->maxSpeed * physics->direction;
 
 		atkSpeed->timeAttack = atkSpeed->timeAttack - dt <= 0 ? 0 : atkSpeed->timeAttack - dt;
 	}

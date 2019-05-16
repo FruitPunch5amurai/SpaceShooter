@@ -9,26 +9,39 @@
 				{
 					"bx":0,
 					"by":0,
-					"width":6,
-					"height":16
+					"width":16,
+					"height":6
 				},
 				{
-					"bx":6,
-					"by":0,
-					"width":6,
-					"height":16
+					"bx":0,
+					"by":6,
+					"width":16,
+					"height":6
 				},
 				{
-					"bx":12,
-					"by":0,
-					"width":6,
-					"height":16
+					"bx":0,
+					"by":12,
+					"width":16,
+					"height":6
 				},
 				{
-					"bx":18,
-					"by":0,
-					"width":6,
-					"height":16
+					"bx":0,
+					"by":18,
+					"width":16,
+					"height":6
+				}
+			]	
+		},
+		{
+			"Name":"EnemyShot1",
+			"StartFrame":0,
+			"AnimationSpeed":0.2,
+			"FrameData":[
+				{
+					"bx":1,
+					"by":24,
+					"width":12,
+					"height":12
 				}
 			]	
 		}

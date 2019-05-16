@@ -74,6 +74,8 @@ void GameplayScreen::OnEntry()
 	//Init Camera
 	m_camera.Init(m_window->getScreenWidth(), m_window->getScreenHeight());
 
+	player = s_entityXManager.entities.create();
+
 	//Add Systems
 	s_entityXManager.systems.add<MotionSystem>();
 	s_entityXManager.systems.add<CollisionSystem>();
@@ -90,7 +92,6 @@ void GameplayScreen::OnEntry()
 
 	//Create Player
 	PlayerCreator playerCreator(s_entityXManager.systems.system<CollisionSystem>()->m_space, &m_game->inputManager);
-	player = s_entityXManager.entities.create();
 	playerCreator.create(player);
 
 	//s_entityXManager.systems.system<AiSystem>()->CreateEnemy(&s_entityXManager.entities, s_entityXManager.systems.system<CollisionSystem>()->m_space, glm::vec2(0.0f, 0.0f),"BLUE_GRUNT");
@@ -110,21 +111,21 @@ void GameplayScreen::Update()
 
 	float totalDeltaTime = (float)frameTime / DESIRED_FRAMETIME;
 
-	int i = 0; // This counter makes sure we don't spiral to death!
-			   // Loop while we still have steps to process.
+	//int i = 0; // This counter makes sure we don't spiral to death!
+	//		   // Loop while we still have steps to process.
 
-	while (totalDeltaTime > 0.0f && i < MAX_PHYSICS_STEPS) {
-		// The deltaTime should be the the smaller of the totalDeltaTime and MAX_DELTA_TIME
-		float deltaTime = min(totalDeltaTime, MAX_DELTA_TIME);
-		//Update Systems
-		s_entityXManager.systems.update_all(deltaTime);
+	//while (totalDeltaTime > 0.0f && i < MAX_PHYSICS_STEPS) {
+	//	// The deltaTime should be the the smaller of the totalDeltaTime and MAX_DELTA_TIME
+	//	float deltaTime = min(totalDeltaTime, MAX_DELTA_TIME);
+	//	//Update Systems
+	//	s_entityXManager.systems.update_all(deltaTime);
 
-		// Since we just took a step that is length deltaTime, subtract from totalDeltaTime
-		totalDeltaTime -= deltaTime;
-		// Increment our frame counter so we can limit steps to MAX_PHYSICS_STEPS
-		i++;
-	}
-
+	//	// Since we just took a step that is length deltaTime, subtract from totalDeltaTime
+	//	totalDeltaTime -= deltaTime;
+	//	// Increment our frame counter so we can limit steps to MAX_PHYSICS_STEPS
+	//	i++;
+	//}
+	s_entityXManager.systems.update_all(totalDeltaTime);
 	//Update Camera
 	m_camera.Update();
 	//Update Physics Simulation
