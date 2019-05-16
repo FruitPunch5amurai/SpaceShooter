@@ -81,16 +81,18 @@ void GameplayScreen::OnEntry()
 	s_entityXManager.systems.add<PlayerControllerSystem>(&m_camera);
 	s_entityXManager.systems.add<AnimationSystem>(&m_camera);
 	s_entityXManager.systems.add<TtLSystem>();
-	s_entityXManager.systems.add<AiSystem>(&m_camera, &m_player);
+	s_entityXManager.systems.add<AiSystem>(&m_camera, player);
 	s_entityXManager.systems.add<LevelSystem>(&m_camera);
 	s_entityXManager.systems.add<HealthSystem>();
 	s_entityXManager.systems.configure();
 
 	m_cameraBackdrop.Init("Textures/starfield.png", m_window, m_camera);
 
-	//RegisterLuaClasses
+	//Create Player
+	PlayerCreator playerCreator(s_entityXManager.systems.system<CollisionSystem>()->m_space, &m_game->inputManager);
+	player = s_entityXManager.entities.create();
+	playerCreator.create(player);
 
-	m_player.Init(&s_entityXManager.entities, s_entityXManager.systems.system<CollisionSystem>()->m_space, &m_game->inputManager);
 	//s_entityXManager.systems.system<AiSystem>()->CreateEnemy(&s_entityXManager.entities, s_entityXManager.systems.system<CollisionSystem>()->m_space, glm::vec2(0.0f, 0.0f),"BLUE_GRUNT");
 	s_entityXManager.systems.system<LevelSystem>()->LoadLevel("lua_scripts/levels/level.lua");
 }

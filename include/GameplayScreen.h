@@ -13,7 +13,6 @@
 #include <ras_GUI.h>
 #include <InputManager.h>
 //SpaceShooter
-#include "Player.h"
 #include "CameraBackdrop.h"
 
 //Lua
@@ -49,7 +48,8 @@ public:
 
 private:
 	void CheckInput();
-	Player m_player;
+
+	entityx::Entity player;
 
 	Rasengine::Window* m_window;
 	Rasengine::Camera2D m_camera;

@@ -55,7 +55,7 @@ struct ProjectileSystem : public System<ProjectileSystem>, public Receiver<Proje
 
 		entityHandle.assign<SpriteComponent>(projectile.resource, projectile.projectileType);
 		entityHandle.assign<PhysicsComponent>(projectile.speed);
-		entityHandle.component<PhysicsComponent>()->currentSpeed = glm::vec2(projectile.speed*projectile.direction.x, projectile.speed*projectile.direction.y);
+		entityHandle.component<PhysicsComponent>()->currentSpeed = glm::vec2(projectile.speed, projectile.speed);
 		entityHandle.component<PhysicsComponent>()->direction = projectile.direction;
 		entityHandle.assign<TtLComponent>(projectile.TtL);
 		entityHandle.assign<TransformComponent>(projectile.position);

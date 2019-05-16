@@ -6,7 +6,6 @@
 #include "Components\AI_BlueGrunt.h"
 #include "Components\AIComponent.h"
 
-#include "Player.h"
 //Rasengine
 #include <LuaHelper.h>
 
@@ -24,7 +23,7 @@ using namespace entityx;
 
 struct AiSystem : public System<AiSystem>, public entityx::Receiver<AiSystem>
 {
-	AiSystem(Rasengine::Camera2D* camera,Player* player)
+	AiSystem(Rasengine::Camera2D* camera,entityx::Entity player)
 	{
 		this->m_player = player;
 		this->m_camera = camera;
@@ -73,15 +72,13 @@ struct AiSystem : public System<AiSystem>, public entityx::Receiver<AiSystem>
 			AiMap::iterator it = m_aiMap.find(ent.id());
 			if (it != end(m_aiMap))
 			{
-				it->second->Update(ent);
+				it->second->Update(ent,events,dt);
 			}
 		}
 	}
 private:
 	typedef std::map<entityx::Entity::Id, IAiSP> AiMap;
-
+	entityx::Entity m_player;
 	AiMap m_aiMap;
-
-	Player* m_player;
 	Rasengine::Camera2D* m_camera;
 };

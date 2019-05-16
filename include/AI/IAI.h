@@ -21,6 +21,6 @@ public:
 	{
 
 	}
-	virtual void Update(entityx::Entity self) {}	
+	virtual void Update(entityx::Entity self,  entityx::EventManager &events, entityx::TimeDelta dt) {}
 };
 typedef std::shared_ptr<IAi> IAiSP;

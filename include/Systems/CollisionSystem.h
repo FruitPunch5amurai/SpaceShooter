@@ -51,7 +51,8 @@ struct CollisionSystem : public System<CollisionSystem>
 		handler->preSolveFunc = CollisionSystem::TakeDamage;
 		handler = cpSpaceAddCollisionHandler(m_space, ENEMY_CATAGORY, PLAYER_CATAGORY);
 		handler->preSolveFunc = CollisionSystem::TakeDamage;
-
+		handler = cpSpaceAddCollisionHandler(m_space, ENEMY_BULLET_CATAGORY, PLAYER_CATAGORY);
+		handler->preSolveFunc = CollisionSystem::TakeDamage;
 	}
 	~CollisionSystem()
 	{
