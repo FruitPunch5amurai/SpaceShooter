@@ -1,0 +1,36 @@
+{
+	"SpriteSheet" : "Textures/Projectiles.png",
+	"Animations":[
+		{
+			"Name":"NormalShot",
+			"StartFrame":0,
+			"AnimationSpeed":0.2,
+			"FrameData":[
+				{
+					"bx":0,
+					"by":0,
+					"width":6,
+					"height":16
+				},
+				{
+					"bx":6,
+					"by":0,
+					"width":6,
+					"height":16
+				},
+				{
+					"bx":12,
+					"by":0,
+					"width":6,
+					"height":16
+				},
+				{
+					"bx":18,
+					"by":0,
+					"width":6,
+					"height":16
+				}
+			]	
+		}
+	]
+}

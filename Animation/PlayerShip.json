@@ -1,0 +1,36 @@
+{
+	"SpriteSheet" : "Textures/Spaceships.png",
+	"Animations":[
+		{
+			"Name":"Idle",
+			"StartFrame":0,
+			"AnimationSpeed":0.2,
+			"FrameData":[
+				{
+					"bx":0,
+					"by":0,
+					"width":43,
+					"height":38
+				},
+				{
+					"bx":0,
+					"by":38,
+					"width":43,
+					"height":38
+				},
+				{
+					"bx":0,
+					"by":76,
+					"width":43,
+					"height":38
+				},
+				{
+					"bx":0,
+					"by":114,
+					"width":43,
+					"height":38
+				}
+			]	
+		}
+	]
+}
