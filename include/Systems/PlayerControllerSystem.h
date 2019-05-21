@@ -1,4 +1,6 @@
 #pragma once
+#include "Events/Event_Sound.h"
+
 #include "Components\SpriteComponent.h"
 //#include "Components\TransformComponent.h"
 #include "Components\InputComponent.h"
@@ -86,10 +88,11 @@ struct PlayerControllerSystem : public System<PlayerControllerSystem>
 			{
 				if (atkSpeed->timeAttack <= 0)
 				{
+					events.emit<Event_Sound>("sounds/laser.wav");
 					events.emit<Projectile>(centerPosition, 
 						sprite->m_dir,
 						800.0f, 
-						160.0f, 
+						400.0f, 
 						"Animation/Projectile.json",
 						"NormalShot",
 						2,	//Damage

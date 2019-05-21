@@ -13,11 +13,13 @@ class EnemyCreator : public ICreatable
 {
 public:
 	EnemyCreator(cpSpace* space, const glm::vec2& position, AiId enemyType);
+	EnemyCreator(cpSpace* space, const std::vector<glm::vec2>& positions, AiId enemyType);
 
 	void create(entityx::Entity entity);
 private:
 	AiId m_enemyType;
 	glm::vec2 m_position;
+	std::vector<glm::vec2> m_positions;
 	cpSpace* m_space;
 };
 class PlayerCreator : public ICreatable

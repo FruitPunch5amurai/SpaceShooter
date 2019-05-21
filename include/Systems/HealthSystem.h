@@ -7,6 +7,7 @@
 #include "Components\HealthComponent.h"
 #include "Components\DamageComponent.h"
 #include "Components\TtLComponent.h"
+#include "Events/Event_Sound.h"
 #include "AI\IAI.h"
 //Rasengine
 #include <LuaHelper.h>
@@ -48,7 +49,8 @@ struct HealthSystem : public System<HealthSystem>
 			{
 				if (ent.has_component<InputComponent>())
 				{
-					continue;
+					ent.remove<InputComponent>();
+					events.emit<Event_Sound>("sounds/player_death.mp3");
 				}
 				if (ent.has_component<AIComponent>())
 					ent.remove<AIComponent>();
@@ -62,9 +64,10 @@ struct HealthSystem : public System<HealthSystem>
 					sprite.get()->m_lastAnimationStep = 0;
 					sprite.get()->isStatic = false;
 					ent.assign<TtLComponent>(480.0f);
+					events.emit<Event_Sound>("sounds/enemy_explosion.mp3");
 				}
 				else
-					ent.destroy();
+					ent.destroy();			
 				continue;
 			}
 		}

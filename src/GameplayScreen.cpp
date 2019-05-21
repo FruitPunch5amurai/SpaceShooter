@@ -13,6 +13,7 @@
 #include "Systems\ProjectileSystem.h"
 #include "Systems\LevelSystem.h"
 #include "Systems\HealthSystem.h"
+#include "Systems\SoundSystem.h"
 #include "EntityXManager.h"
 
 //Rasengine
@@ -86,6 +87,7 @@ void GameplayScreen::OnEntry()
 	s_entityXManager.systems.add<AiSystem>(&m_camera, player);
 	s_entityXManager.systems.add<LevelSystem>(&m_camera);
 	s_entityXManager.systems.add<HealthSystem>();
+	s_entityXManager.systems.add<SoundSystem>(m_game->GetAudioEngine());
 	s_entityXManager.systems.configure();
 
 	m_cameraBackdrop.Init("Textures/starfield.png", m_window, m_camera);
@@ -125,11 +127,11 @@ void GameplayScreen::Update()
 	//	// Increment our frame counter so we can limit steps to MAX_PHYSICS_STEPS
 	//	i++;
 	//}
-	s_entityXManager.systems.update_all(totalDeltaTime);
+		s_entityXManager.systems.update_all(totalDeltaTime);
 	//Update Camera
 	m_camera.Update();
 	//Update Physics Simulation
-	cpSpaceStep(s_entityXManager.systems.system<CollisionSystem>()->m_space, 1.0f / 60.0f);
+	cpSpaceStep(s_entityXManager.systems.system<CollisionSystem>()->m_space, 1.0f / 30.0f);
 }
 
 void GameplayScreen::Draw()

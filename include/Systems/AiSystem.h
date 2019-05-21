@@ -3,8 +3,10 @@
 
 #include "AI/IAi.h"
 
-#include "Components\AI_BlueGrunt.h"
-#include "AI\AI_HomingProjectile.h"
+#include "AI\AI_BlueGrunt.h"
+#include "AI\AI_PurpleGrunt.h"
+#include "AI\AI_Homing.h"
+#include "AI\AI_GreenGrunt.h"
 #include "Components\AIComponent.h"
 
 //Rasengine
@@ -45,10 +47,16 @@ struct AiSystem : public System<AiSystem>, public entityx::Receiver<AiSystem>
 		switch (e.component->aiId)
 		{
 		case AI_ID_BLUE_GRUNT:
-			spAi.reset(new AI_BlueGrunt());
+			spAi.reset(new AI_BlueGrunt(m_player));
+			break;
+		case AI_ID_PURPLE_GRUNT:
+			spAi.reset(new AI_PurpleGrunt(m_player));
 			break;
 		case AI_ID_ENEMY_HOMING_PROJECTILE:
-			spAi.reset(new AI_HomingProjectile(m_player));
+			spAi.reset(new AI_Homing(m_player));
+			break;
+		case AI_ID_GREEN_GRUNT:
+			spAi.reset(new AI_GreenGrunt(m_player));
 			break;
 		default:
 			break;

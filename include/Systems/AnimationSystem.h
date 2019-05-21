@@ -78,5 +78,5 @@ private:
 	Rasengine::SpriteBatch m_spriteBatch;
 	Rasengine::DebugRenderer m_debugRenderer;
 	Rasengine::Camera2D* m_camera;
-	bool m_debugDraw = true;
+	bool m_debugDraw = false;
 };
